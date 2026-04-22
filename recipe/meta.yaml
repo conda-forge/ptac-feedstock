@@ -6,26 +6,26 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/ptac-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/ptac-{{ version }}.tar.gz
   sha256: 8bbf3ef7f295d06266e1a2438dd2841ab61c02bc82169311fac8e5bba1496b8d
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   build:
     - python >=3.8
 
   host:
-    - python >=3.8
+    - python {{ python_min }}
     - pip
     - setuptools
     - wheel
  
   run:
-    - python >=3.8
+    - python >={{ python_min }}
     - osmnx ==1.1.1
     - networkx >=2.5
     - numpy ==1.22.4
@@ -42,6 +42,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/DLR-VF/PtAC
